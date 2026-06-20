@@ -37,6 +37,10 @@ export class LineWebhookController {
   }
 
   private async handleEvent(event: webhook.Event): Promise<void> {
+    const userId = event.source?.userId ?? 'unknown';
+    if(userId){
+       await this.delivery.showLoadingAnimation(userId);
+    }
     const messages = await this.producer.createReplyMessages(event);
 
     if (messages.length === 0 || !('replyToken' in event) || !event.replyToken) {

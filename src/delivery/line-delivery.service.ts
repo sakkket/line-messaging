@@ -15,6 +15,13 @@ export class LineDeliveryService {
     });
   }
 
+  async showLoadingAnimation(userId: string){
+    await this.client.showLoadingAnimation({
+      chatId: userId,
+      loadingSeconds: 20,
+    });
+  }
+
   async reply(replyToken: string, messages: LineMessage[]): Promise<void> {
     await this.client.replyMessage({ replyToken, messages });
   }
