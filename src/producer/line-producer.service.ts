@@ -15,7 +15,7 @@ export class LineProducerService {
     if (event.type === 'message' && event.message.type === 'text') {
       const userId = event.source?.userId ?? 'unknown';
       this.logger.log(`Sending user query:: ${event.message.text} to LLM userId:: ${userId}`);
-      const llmResponse:string = await this.llmResponse.generateResponse(event.message.text);
+      const llmResponse:string = await this.llmResponse.generateResponse(event.message.text, userId);
       this.logger.log(`Received Response :: ${llmResponse} from LLM userId:: ${userId} user query:: ${event.message.text}`);
       return [
   {
