@@ -32,7 +32,7 @@ npm run start:dev
 Expose the local server when testing with LINE:
 
 ```bash
-npx ngrok http 3000
+npx ngrok http 3001
 ```
 
 Then set the LINE webhook URL to:
