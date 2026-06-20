@@ -37,7 +37,7 @@ export class LineWebhookController {
   }
 
   private async handleEvent(event: webhook.Event): Promise<void> {
-    const messages = this.producer.createReplyMessages(event);
+    const messages = await this.producer.createReplyMessages(event);
 
     if (messages.length === 0 || !('replyToken' in event) || !event.replyToken) {
       return;

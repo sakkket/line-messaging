@@ -3,8 +3,9 @@ import { ConfigModule } from './config/config.module';
 import { ConsumerModule } from './consumer/consumer.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { ProducerModule } from './producer/producer.module';
+import { LLMModule } from './llm/llm.module';
 
 @Module({
-  imports: [ConfigModule, DeliveryModule, ProducerModule, ConsumerModule],
+  imports: [ConfigModule, DeliveryModule, ProducerModule, ConsumerModule, LLMModule],
 })
 export class AppModule {}
