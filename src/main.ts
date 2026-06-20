@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import * as express from 'express';
 import * as line from '@line/bot-sdk';
 import { NestFactory } from '@nestjs/core';
+import type { NextFunction, Request, Response } from 'express';
 import { AppModule } from './app.module';
 import { getLineConfig } from './config/line.config';
 
@@ -10,6 +11,17 @@ async function bootstrap() {
   const lineConfig = getLineConfig();
 
   app.use('/webhook', line.middleware(lineConfig));
+  app.use(
+    '/webhook',
+    (error: unknown, _request: Request, response: Response, next: NextFunction) => {
+      if (error instanceof line.SignatureValidationFailed) {
+        response.status(401).json({ message: error.message });
+        return;
+      }
+
+      next(error);
+    },
+  );
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
