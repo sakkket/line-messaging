@@ -23,7 +23,7 @@ export class LineProducerService {
     altText: 'Saket Labs Assistant',
     contents: {
       type: 'bubble',
-      size: 'giga',
+      size: 'kilo',
       body: {
         type: 'box',
         layout: 'vertical',
