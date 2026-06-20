@@ -5,6 +5,7 @@ import { LlmResponseService } from 'src/llm/llm-response.service';
 
 @Injectable()
 export class LineProducerService {
+  private readonly logger = new Logger(LineProducerService.name);
 
   constructor(
     private readonly llmResponse: LlmResponseService
@@ -13,8 +14,9 @@ export class LineProducerService {
   async createReplyMessages(event: webhook.Event): Promise<messagingApi.Message[]> {
     if (event.type === 'message' && event.message.type === 'text') {
       const userId = event.source?.userId ?? 'unknown';
+      this.logger.log(`Sending user query:: ${event.message.text} to LLM userId:: ${userId}`);
       const llmResponse:string = await this.llmResponse.generateResponse(event.message.text);
-
+      this.logger.log(`Received Response :: ${llmResponse} from LLM userId:: ${userId} user query:: ${event.message.text}`);
       return [
         {
           type: 'text',
